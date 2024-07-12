@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VRChatOscDebugger.App", "VRChatOscDebugger.App\VRChatOscDebugger.App.csproj", "{477D5AD4-DAE4-4948-962D-AF96E2A8C63A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VRChatOscDebugger.OscCore", "VRChatOscDebugger.OscCore\VRChatOscDebugger.OscCore.csproj", "{5B5FE888-AFFF-4F8F-9CB9-C116E45B8DED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VRChatOscDebugger.Core", "VRChatOscDebugger.Core\VRChatOscDebugger.Core.csproj", "{03B70406-51F5-42F1-8299-D445CD174DC1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{477D5AD4-DAE4-4948-962D-AF96E2A8C63A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{477D5AD4-DAE4-4948-962D-AF96E2A8C63A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{477D5AD4-DAE4-4948-962D-AF96E2A8C63A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{477D5AD4-DAE4-4948-962D-AF96E2A8C63A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B5FE888-AFFF-4F8F-9CB9-C116E45B8DED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B5FE888-AFFF-4F8F-9CB9-C116E45B8DED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B5FE888-AFFF-4F8F-9CB9-C116E45B8DED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B5FE888-AFFF-4F8F-9CB9-C116E45B8DED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03B70406-51F5-42F1-8299-D445CD174DC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03B70406-51F5-42F1-8299-D445CD174DC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03B70406-51F5-42F1-8299-D445CD174DC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03B70406-51F5-42F1-8299-D445CD174DC1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

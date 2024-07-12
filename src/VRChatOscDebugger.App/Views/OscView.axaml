@@ -1,0 +1,45 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:viewModels="clr-namespace:VRChatOscDebugger.App.ViewModels"
+             xmlns:controls="clr-namespace:VRChatOscDebugger.App.Controls"
+             xmlns:treeDataGrid="clr-namespace:Avalonia.Controls.Models.TreeDataGrid;assembly=Avalonia.Controls.TreeDataGrid"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="viewModels:OscViewModel"
+             x:Class="VRChatOscDebugger.App.Views.OscView">
+
+    <Grid RowDefinitions="Auto *">
+        <Grid ColumnDefinitions="Auto,*,Auto" Margin="0,16,16,0">
+            <TextBlock FontSize="24">OSC</TextBlock>
+            <TextBox Grid.Column="1" Watermark="Search Parameters" Margin="12,0,0,0">
+                <TextBox.InnerLeftContent>
+                    <avalonia:MaterialIcon Kind="Magnify" />
+                </TextBox.InnerLeftContent>
+            </TextBox>
+            <ComboBox Grid.Column="2" ItemsSource="{Binding OscQueryServices}" PlaceholderText="Select a OSC Service"
+                      Margin="12,0" SelectionChanged="OscQueryService_OnSelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate DataType="viewModels:OscQueryServiceItemViewModel">
+                        <TextBlock>
+                            <Run Text="{Binding Name}" />
+                            <Run Text="{Binding Address}" />
+                            <Run Text="{Binding Port}" />
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Grid>
+        <controls:OscConnection Grid.Row="1" IsVisible="{Binding !IsConnected}" VerticalAlignment="Center" />
+        <TreeDataGrid Grid.Row="1" Source="{Binding OscParametersView, Mode=OneWay}" IsVisible="{Binding IsConnected}">
+            <TreeDataGrid.Resources>
+                <DataTemplate x:Key="PathCell" DataType="viewModels:OscQueryNodeViewModel">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center" Text="{Binding FullPath}" />
+                    </StackPanel>
+                </DataTemplate>
+            </TreeDataGrid.Resources>
+        </TreeDataGrid>
+    </Grid>
+</UserControl>

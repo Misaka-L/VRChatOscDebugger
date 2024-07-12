@@ -1,0 +1,42 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:viewModels="clr-namespace:VRChatOscDebugger.App.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="viewModels:OscViewModel"
+             x:Class="VRChatOscDebugger.App.Controls.OscConnection">
+
+    <StackPanel Width="800">
+        <StackPanel HorizontalAlignment="Center" Margin="0,0,0,72">
+            <avalonia:MaterialIcon Height="64" Width="64" Kind="HelpNetwork" HorizontalAlignment="Center" />
+            <TextBlock HorizontalAlignment="Center" Margin="0,12,0,0">No OSC Connection</TextBlock>
+        </StackPanel>
+        <Grid ColumnDefinitions="*,*">
+            <StackPanel Margin="0,0,10,0">
+                <TextBlock>We're searching for OSCQuery services...</TextBlock>
+                <ListBox Name="OscQueryServiceListBox" ItemsSource="{Binding OscQueryServices}">
+                    <ListBox.DataTemplates>
+                        <DataTemplate DataType="viewModels:OscQueryServiceItemViewModel">
+                            <TextBlock>
+                                <Run Text="{Binding Type}" />
+                                <Run Text="{Binding  Name}" />
+                                <Run Text="{Binding  Address}" />
+                                <Run Text="{Binding  Port}" />
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.DataTemplates>
+                </ListBox>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                <TextBlock>Or you can type the address manually</TextBlock>
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBox Watermark="127.0.0.1:9001" />
+                    <Button Grid.Column="1" Content="Connect" Command="{Binding ConnectOscCommand}"
+                            CommandParameter="{Binding ElementName=OscQueryServiceListBox, Path=SelectedItem}" />
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</UserControl>
