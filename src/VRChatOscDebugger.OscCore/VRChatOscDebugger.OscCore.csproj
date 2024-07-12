@@ -8,11 +8,10 @@
     
     <ItemGroup>
         <PackageReference Include="Rug.Osc" Version="1.2.5" />
-        <PackageReference Include="VRChat.OSCQuery" Version="0.0.7" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     </ItemGroup>
     
     <ItemGroup>
+      <ProjectReference Include="..\..\vrc-oscquery-lib\vrc-oscquery-lib\vrc-oscquery-lib.csproj" />
       <ProjectReference Include="..\VRChatOscDebugger.Core\VRChatOscDebugger.Core.csproj" />
     </ItemGroup>
 

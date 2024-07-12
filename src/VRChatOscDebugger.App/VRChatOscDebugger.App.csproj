@@ -21,12 +21,9 @@
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.10"/>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1"/>
         <PackageReference Include="Material.Icons.Avalonia" Version="2.1.10" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-        <PackageReference Include="Rug.Osc" Version="1.2.5" />
         <PackageReference Include="Semi.Avalonia" Version="11.0.7.4" />
         <PackageReference Include="Semi.Avalonia.DataGrid" Version="11.0.7.2" />
         <PackageReference Include="Semi.Avalonia.TreeDataGrid" Version="11.0.1" />
-        <PackageReference Include="VRChat.OSCQuery" Version="0.0.7" />
     </ItemGroup>
 
     <ItemGroup>
