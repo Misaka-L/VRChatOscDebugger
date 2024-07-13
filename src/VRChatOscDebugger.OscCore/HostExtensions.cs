@@ -33,35 +33,42 @@ public static class HostExtensions
 
             var osuQueryService = new OSCQueryServiceBuilder()
                 .WithServiceName(serviceName)
-                .WithHostIP(IPAddress.Loopback)
-                .WithOscIP(NetworkUtils.GetLocalIpAddressNonLoopback().FirstOrDefault())
+                .WithHostIPs(NetworkUtils.GetLocalIpAddressNonLoopback())
+                .WithOscIPs(NetworkUtils.GetLocalIpAddressNonLoopback())
+                .WithDynamicOscIp()
                 .WithTcpPort(tcpPort)
                 .WithUdpPort(udpPort)
                 .WithLogger(logger)
                 .WithDiscovery(new MeaModDiscovery(logger))
-                .StartHttpServer()
+                .WithListenAnyHost()
+                .AddHttpServer(services.GetRequiredService<ILoggerFactory>())
                 .AdvertiseOSC()
                 .AdvertiseOSCQuery()
                 .Build();
 
-            osuQueryService.RefreshServices();
+            _ = Task.Run(async () =>
+            {
+                await osuQueryService.StartHttpServer();
 
-            logger.LogInformation("Starting OSC service on {OscIp}:{OscPort}", osuQueryService.OscIP,
-                osuQueryService.OscPort);
-            logger.LogInformation("Starting OSCQuery service on http://{OscIp}:{OscPort}", osuQueryService.HostIP,
-                osuQueryService.TcpPort);
-            logger.LogInformation("With Service Name: {Name}", serviceName);
+                osuQueryService.RefreshServices();
+
+                logger.LogInformation("Starting OSC service on {OscIp}:{OscPort}", osuQueryService.OscIP,
+                    osuQueryService.OscPort);
+                logger.LogInformation("Starting OSCQuery service on http://{OscIp}:{OscPort}", osuQueryService.HostIP,
+                    osuQueryService.TcpPort);
+                logger.LogInformation("With Service Name: {Name}", serviceName);
+            });
 
             osuQueryService.OnOscServiceAdded += sender =>
             {
                 logger.LogInformation("OSC Service Added: {ServiceType} {ServiceName} at {Address}:{Port}",
-                    sender.serviceType, sender.name, sender.address, sender.port);
+                    sender.ServiceType, sender.Name, sender.Addresses, sender.Port);
             };
 
             osuQueryService.OnOscQueryServiceAdded += profile =>
             {
                 logger.LogInformation("OSCQuery Service Added: {ServiceType} {ServiceName} at {Address}:{Port}",
-                    profile.serviceType, profile.name, profile.address, profile.port);
+                    profile.ServiceType, profile.Name, profile.Addresses, profile.Port);
             };
 
             return osuQueryService;

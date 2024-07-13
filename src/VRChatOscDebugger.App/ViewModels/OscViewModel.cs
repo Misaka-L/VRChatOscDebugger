@@ -19,6 +19,7 @@ public partial class OscViewModel : ViewModelBase
     [ObservableProperty] private bool _isConnected;
 
     [ObservableProperty] private ObservableCollection<OscQueryServiceItemViewModel> _oscQueryServices = [];
+
     [ObservableProperty] private HierarchicalTreeDataGridSource<OscQueryNodeViewModel> _oscParametersView = new([])
     {
         Columns =
@@ -59,17 +60,17 @@ public partial class OscViewModel : ViewModelBase
 
         oscQueryService.OnOscQueryServiceAdded += profile =>
         {
-            if (OscQueryServices.Any(p => p.Name == profile.name))
+            if (OscQueryServices.Any(p => p.Name == profile.Name))
             {
                 return;
             }
 
             OscQueryServices.Add(new OscQueryServiceItemViewModel
             {
-                Name = profile.name,
-                Address = profile.address.ToString(),
-                Port = profile.port,
-                Type = profile.serviceType.ToString()
+                Name = profile.Name,
+                Address = profile.Addresses[0].ToString(),
+                Port = profile.Port,
+                Type = profile.ServiceType.ToString()
             });
         };
     }
@@ -98,7 +99,7 @@ public partial class OscViewModel : ViewModelBase
                 Description = node.Description,
                 FullPath = node.FullPath,
                 Type = node.Type,
-                Value = (node.Value ?? []).Length >= 1 ? node.Value.First() : null,
+                Value = (node.Value ?? []).Length >= 1 ? node.Value[0] : null,
                 Childrens = node.Contents.Select(node => ToViewModel(node.Value)).ToArray()
             };
         }

@@ -12,7 +12,8 @@ public class OscService(OSCQueryService oscQueryService, ILogger<OscService> log
     public IPEndPoint? ConnectedOscSendEndPoint { get; private set; }
     public IPEndPoint? ConnectedOscQueryEndPoint { get; private set; }
 
-    public event EventHandler<OscMessage> OnOscMessageReceived;
+    public event EventHandler<OscMessage>? OnOscMessageReceived;
+    public event EventHandler? OnOscConnected;
 
     public async Task<OscQueryNode?> ConnectByOscQueryAsync(string ipAddress, int port)
     {
@@ -30,6 +31,8 @@ public class OscService(OSCQueryService oscQueryService, ILogger<OscService> log
         ConnectedOscSendEndPoint = new IPEndPoint(IPAddress.Parse(hostInfo.OscIp), hostInfo.OscPort);
         ConnectedOscQueryEndPoint = new IPEndPoint(IPAddress.Parse(ipAddress), port);
 
+        OnOscConnected?.Invoke(this, EventArgs.Empty);
+
         return nodes;
     }
 
@@ -38,6 +41,6 @@ public class OscService(OSCQueryService oscQueryService, ILogger<OscService> log
         if (!message.Origin.Address.Equals(ConnectedOscSendEndPoint.Address))
             return;
 
-        OnOscMessageReceived(this, message);
+        OnOscMessageReceived?.Invoke(this, message);
     }
 }
