@@ -46,6 +46,14 @@ public partial class OscViewModel : ViewModelBase
             Name = "Enter IP and port manually",
         });
 
+        // OscQueryServices.Add(new OscQueryServiceItemViewModel
+        // {
+        //     Name = "VRChat-Client-060203",
+        //     Address = "172.19.0.1",
+        //     Port = 58655,
+        //     Type = "OSCQuery"
+        // });
+
         oscService.OnOscMessageReceived += (_, message) =>
         {
             if (message.Address == "/avatar/change")

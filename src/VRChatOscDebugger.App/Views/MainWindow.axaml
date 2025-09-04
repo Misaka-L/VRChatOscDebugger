@@ -12,22 +12,25 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="VRChatOscDebugger.App">
 
-    <TabControl TabStripPlacement="Left">
-        <TabItem>
-            <TabItem.Header>
-                <controls:RailNavigationItem Icon="Home" Title="OSC" />
-            </TabItem.Header>
-            <views:OscView/>
-        </TabItem>
-        <TabItem>
-            <TabItem.Header>
-                <controls:RailNavigationItem Icon="FileDocument" Title="Logs" />
-            </TabItem.Header>
-        </TabItem>
-        <TabItem>
-            <TabItem.Header>
-                <controls:RailNavigationItem Icon="Settings" Title="Settings" />
-            </TabItem.Header>
-        </TabItem>
-    </TabControl>
+    <Grid RowDefinitions="*,Auto">
+        <TabControl TabStripPlacement="Left">
+            <TabItem>
+                <TabItem.Header>
+                    <controls:RailNavigationItem Icon="Home" Title="OSC" />
+                </TabItem.Header>
+                <views:OscView />
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <controls:RailNavigationItem Icon="FileDocument" Title="Logs" />
+                </TabItem.Header>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <controls:RailNavigationItem Icon="Settings" Title="Settings" />
+                </TabItem.Header>
+            </TabItem>
+        </TabControl>
+        <controls:AppStatusBar Grid.Row="1"/>
+    </Grid>
 </Window>

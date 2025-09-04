@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 using Microsoft.Extensions.Logging;
 using Rug.Osc;
 using VRC.OSCQuery;
+using VRChatOscDebugger.Core.Utils;
 using VRChatOscDebugger.OscCore.Models;
 
 namespace VRChatOscDebugger.OscCore.Services;
@@ -38,7 +39,13 @@ public class OscService(OSCQueryService oscQueryService, ILogger<OscService> log
 
     internal void NotifyOscMessageReceive(OscMessage message)
     {
-        if (!message.Origin.Address.Equals(ConnectedOscSendEndPoint.Address))
+        if (ConnectedOscSendEndPoint == null)
+            return;
+
+        var localhostIps = NetworkUtils.GetLocalIpAddressNonLoopback();
+        var originAddress = message.Origin.Address;
+
+        if (!localhostIps.Contains(originAddress) && !originAddress.Equals(ConnectedOscSendEndPoint.Address))
             return;
 
         OnOscMessageReceived?.Invoke(this, message);

@@ -30,6 +30,8 @@ sealed class Program
 
         hostBuilder.Services.AddTransient<OscConnection>();
 
+        hostBuilder.Services.AddTransient<OscStatusBarViewModel>();
+
         var host = hostBuilder.Build();
 
         ServiceProvider = host.Services;
