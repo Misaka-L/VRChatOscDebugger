@@ -52,23 +52,25 @@ public static class HostExtensions
 
                 osuQueryService.RefreshServices();
 
-                logger.LogInformation("Starting OSC service on {OscIp}:{OscPort}", osuQueryService.OscIP,
-                    osuQueryService.OscPort);
-                logger.LogInformation("Starting OSCQuery service on http://{OscIp}:{OscPort}", osuQueryService.HostIP,
-                    osuQueryService.TcpPort);
+                logger.LogInformation("Starting OSC service on {}",
+                    osuQueryService.OscIP.Select(oscIp => $"{oscIp}:{osuQueryService.OscPort}"));
+                logger.LogInformation("Starting OSCQuery service on {}",
+                    osuQueryService.HostIP.Select(hostIp => $"http://{hostIp}:{osuQueryService.TcpPort}"));
                 logger.LogInformation("With Service Name: {Name}", serviceName);
             });
 
             osuQueryService.OnOscServiceAdded += sender =>
             {
-                logger.LogInformation("OSC Service Added: {ServiceType} {ServiceName} at {Address}:{Port}",
-                    sender.ServiceType, sender.Name, sender.Addresses, sender.Port);
+                logger.LogInformation("OSC Service Added: {ServiceType} {ServiceName} at {AddressList}",
+                    sender.ServiceType, sender.Name,
+                    sender.Addresses.Select(address => $"{address}:{sender.Port}"));
             };
 
             osuQueryService.OnOscQueryServiceAdded += profile =>
             {
-                logger.LogInformation("OSCQuery Service Added: {ServiceType} {ServiceName} at {Address}:{Port}",
-                    profile.ServiceType, profile.Name, profile.Addresses, profile.Port);
+                logger.LogInformation("OSCQuery Service Added: {ServiceType} {ServiceName} at {AddressList}",
+                    profile.ServiceType, profile.Name,
+                    profile.Addresses.Select(address => $"http://{address}:{profile.Port}"));
             };
 
             return osuQueryService;
