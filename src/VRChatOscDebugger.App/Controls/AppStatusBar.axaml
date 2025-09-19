@@ -8,7 +8,7 @@
              x:Class="VRChatOscDebugger.App.Controls.AppStatusBar">
 
     <Border BorderBrush="{DynamicResource SemiColorBorder}" BorderThickness="0,1,0,0">
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Spacing="5" Margin="5, 0, 0, 0">
             <TextBlock>
                 <Run Text="{Binding OscQueryServiceName }"/>
             </TextBlock>
